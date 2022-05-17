@@ -14,12 +14,13 @@ import org.joda.time.format.DateTimeFormatter;
 
 public class Constant {
 
+    
     public static final String bando = "BAEN2";
     public static final boolean test = false;
     public static final boolean demo = false;
     public static final boolean faq = true;
     public static final String nomevisual = "YES I START UP - DONNE E DISOCCUPATI";
-    public static final String version = "1.0.9";
+    public static final String version = "1.0.10";
 
     //Classic
     public static final String slash = "/";
