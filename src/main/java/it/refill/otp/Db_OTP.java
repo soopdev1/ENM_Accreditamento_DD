@@ -84,7 +84,9 @@ public class Db_OTP {
                     + "AND codprogetto = '" + codProgetto + "' "
                     + "AND user = '" + user + "' "
                     + "AND idsms = " + idsms;
-            this.conn.prepareStatement(update).executeUpdate();
+            try ( PreparedStatement ps = this.conn.prepareStatement(update)) {
+                ps.executeUpdate();
+            }
             return true;
         } catch (Exception e) {
             trackingAction("ERROR SYSTEM DBOTP", estraiEccezione(e));
@@ -96,13 +98,14 @@ public class Db_OTP {
         try {
             cambiastato(codProgetto, user, idsms, "KO");
             String upd = "insert into ctrlotp (codprogetto,user,codotp,numcell,idsms) values (?,?,?,?,?)";
-            PreparedStatement ps = this.conn.prepareStatement(upd);
-            ps.setString(1, codProgetto);
-            ps.setString(2, user);
-            ps.setString(3, codOtp);
-            ps.setString(4, numcell);
-            ps.setInt(5, idsms);
-            return ps.executeUpdate() > 0;
+            try ( PreparedStatement ps = this.conn.prepareStatement(upd)) {
+                ps.setString(1, codProgetto);
+                ps.setString(2, user);
+                ps.setString(3, codOtp);
+                ps.setString(4, numcell);
+                ps.setInt(5, idsms);
+                return ps.executeUpdate() > 0;
+            }
         } catch (Exception e) {
             trackingAction("ERROR SYSTEM DBOTP", estraiEccezione(e));
         }
@@ -112,12 +115,14 @@ public class Db_OTP {
     public String getSMS(String codprogetto, int codMsg) {
         try {
             String sql = "Select msg from sms where codprogetto = ? and idsms = ?";
-            PreparedStatement ps = this.conn.prepareStatement(sql);
-            ps.setString(1, codprogetto);
-            ps.setInt(2, codMsg);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getString("msg");
+            try ( PreparedStatement ps = this.conn.prepareStatement(sql)) {
+                ps.setString(1, codprogetto);
+                ps.setInt(2, codMsg);
+                try ( ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getString("msg");
+                    }
+                }
             }
         } catch (Exception e) {
             trackingAction("ERROR SYSTEM DBOTP", estraiEccezione(e));
@@ -128,14 +133,16 @@ public class Db_OTP {
     public boolean isOK(String codprogetto, String user, String otp, int idsms) {
         try {
             String sql = "Select codprogetto from ctrlotp where codprogetto = ? and user = ? and codotp = ? and stato = ? AND idsms = ?";
-            PreparedStatement ps = this.conn.prepareStatement(sql);
-            ps.setString(1, codprogetto);
-            ps.setString(2, user);
-            ps.setString(3, otp);
-            ps.setString(4, "A");
-            ps.setInt(5, idsms);
-            ResultSet rs = ps.executeQuery();
-            return rs.next();
+            try ( PreparedStatement ps = this.conn.prepareStatement(sql)) {
+                ps.setString(1, codprogetto);
+                ps.setString(2, user);
+                ps.setString(3, otp);
+                ps.setString(4, "A");
+                ps.setInt(5, idsms);
+                try ( ResultSet rs = ps.executeQuery()) {
+                    return rs.next();
+                }
+            }
         } catch (Exception e) {
             trackingAction("ERROR SYSTEM DBOTP", estraiEccezione(e));
         }
@@ -145,11 +152,13 @@ public class Db_OTP {
     public String getPath(String id) {
         try {
             String sql = "select url from path where id = ?";
-            PreparedStatement ps = this.conn.prepareStatement(sql);
-            ps.setString(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getString("url");
+            try ( PreparedStatement ps = this.conn.prepareStatement(sql)) {
+                ps.setString(1, id);
+                try ( ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getString("url");
+                    }
+                }
             }
         } catch (Exception e) {
             trackingAction("ERROR SYSTEM DBOTP", estraiEccezione(e));

@@ -12,8 +12,8 @@ import java.io.File;
  * @author Administrator
  */
 public class NewFile {
-    public static void main(String[] args) {
-        File out1 = allegatoC("FVALOC3660");
-                System.out.println(out1.getPath());
-    }
+//    public static void main(String[] args) {
+//        File out1 = allegatoC("FVALOC3660");
+//                System.out.println(out1.getPath());
+//    }
 }

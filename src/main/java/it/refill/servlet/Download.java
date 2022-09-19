@@ -433,10 +433,6 @@ public class Download extends HttpServlet {
         }
     }
 
-    protected void excelcom(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
     protected void excelcomParziale(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String data_da = request.getParameter("data_da");
@@ -578,9 +574,6 @@ public class Download extends HttpServlet {
                 }
                 if (action.equals("docAllegatoB1")) {
                     docAllegatoB1(request, response);
-                }
-                if (action.equals("excelcom")) {
-                    excelcom(request, response);
                 }
                 if (action.equals("excelcomParziale")) {
                     excelcomParziale(request, response);

@@ -96,12 +96,8 @@ public class Db_Bando {
                 p.put("useSSL", "false");
                 p.put("connectTimeout", "1000");
                 p.put("useUnicode", "true");
-
                 this.c = DriverManager.getConnection("jdbc:mysql://" + host, p);
-//                boolean ok = connesso(this.c);
-//                System.out.println("HOST: " + host + " - CONNESSO " + ok + " - ISDBTEST: " + test);
             } catch (Exception ex) {
-                System.err.println(estraiEccezione(ex));
                 if (this.c != null) {
                     try {
                         this.c.close();
@@ -134,12 +130,8 @@ public class Db_Bando {
             p.put("useSSL", "false");
             p.put("connectTimeout", "1000");
             p.put("useUnicode", "true");
-
             this.c = DriverManager.getConnection("jdbc:mysql://" + host, p);
-//            boolean ok = connesso(this.c);
-//            System.out.println("HOST: " + host + " - CONNESSO " + ok + " - ISDBTEST: " + test);
         } catch (Exception ex) {
-            insertTracking("ERROR SYSTEM", estraiEccezione(ex));
             if (this.c != null) {
                 try {
                     this.c.close();
@@ -639,9 +631,10 @@ public class Db_Bando {
     public boolean remdatiAllegatoA(String username) {
         String query = "delete from allegato_a where username = ?";
         try {
-            PreparedStatement ps = this.c.prepareStatement(query);
-            ps.setString(1, username);
-            ps.executeUpdate();
+            try ( PreparedStatement ps = this.c.prepareStatement(query)) {
+                ps.setString(1, username);
+                ps.executeUpdate();
+            }
             return true;
         } catch (Exception e) {
             insertTracking("ERROR SYSTEM", estraiEccezione(e));
@@ -932,17 +925,19 @@ public class Db_Bando {
         Docuserbandi dub = null;
         try {
             String sql = "SELECT * FROM docuserbandi WHERE codbando = ? AND username = ? AND codicedoc = ? AND stato = ? AND tipodoc = ? AND note = ? order by datacar";
-            PreparedStatement ps = this.c.prepareStatement(sql);
-            ps.setString(1, cod);
-            ps.setString(2, username);
-            ps.setString(3, codicedoc);
-            ps.setString(4, "1");
-            ps.setString(5, tipologia);
-            ps.setString(6, note);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                dub = new Docuserbandi(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
+            try ( PreparedStatement ps = this.c.prepareStatement(sql)) {
+                ps.setString(1, cod);
+                ps.setString(2, username);
+                ps.setString(3, codicedoc);
+                ps.setString(4, "1");
+                ps.setString(5, tipologia);
+                ps.setString(6, note);
+                try ( ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        dub = new Docuserbandi(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                                rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
+                    }
+                }
             }
         } catch (SQLException ex) {
             insertTracking("ERROR SYSTEM", estraiEccezione(ex));
@@ -3126,7 +3121,6 @@ public class Db_Bando {
 
                 ps.setString(6, username);
                 ps.setString(7, "S");
-                System.out.println("it.refill.db.Db_Bando.setStatoDomandaAccRif() " + ps.toString());
                 es = ps.executeUpdate() > 0;
             }
         } catch (Exception e) {
@@ -3640,8 +3634,6 @@ public class Db_Bando {
         ArrayList<Comuni_rc> out = new ArrayList<>();
         try {
             String sql = "SELECT * FROM comuni_rc WHERE nome like ? ORDER BY nome";
-            PreparedStatement ps2;
-            ResultSet rs2;
             try ( PreparedStatement ps1 = this.c.prepareStatement(sql, TYPE_SCROLL_INSENSITIVE, CONCUR_UPDATABLE)) {
                 ps1.setString(1, "%" + com + "%");
                 try ( ResultSet rs1 = ps1.executeQuery()) {
@@ -3654,21 +3646,22 @@ public class Db_Bando {
                         }
                     }
                     String sql2 = "SELECT * FROM nazioni_rc WHERE nome like ? ORDER BY nome";
-                    ps2 = this.c.prepareStatement(sql2, TYPE_SCROLL_INSENSITIVE, CONCUR_UPDATABLE);
-                    ps2.setString(1, "%" + com + "%");
-                    rs2 = ps2.executeQuery();
-                    while (rs2.next()) {
-                        Comuni_rc c1 = new Comuni_rc(999999 + rs2.getInt(1), rs2.getString(3), rs2.getString(2), "00", "EE", "00", "EE");
-                        if (c1.getNome().equalsIgnoreCase(com.trim())) {
-                            out.add(0, c1);
-                        } else {
-                            out.add(c1);
+                    try ( PreparedStatement ps2 = this.c.prepareStatement(sql2, TYPE_SCROLL_INSENSITIVE, CONCUR_UPDATABLE)) {
+                        ps2.setString(1, "%" + com + "%");
+                        try ( ResultSet rs2 = ps2.executeQuery()) {
+                            while (rs2.next()) {
+                                Comuni_rc c1 = new Comuni_rc(999999 + rs2.getInt(1), rs2.getString(3), rs2.getString(2), "00", "EE", "00", "EE");
+                                if (c1.getNome().equalsIgnoreCase(com.trim())) {
+                                    out.add(0, c1);
+                                } else {
+                                    out.add(c1);
+                                }
+                            }
                         }
                     }
                 }
             }
-            rs2.close();
-            ps2.close();
+
         } catch (SQLException ex) {
             insertTracking("ERROR SYSTEM", estraiEccezione(ex));
         }

@@ -52,8 +52,4 @@ public class HttpSessionCollector implements HttpSessionListener {
         }
     }
 
-//    public static void print() {
-//        System.out.println(Arrays.asList(sessions.keySet().toArray()));
-//    }
-
 }

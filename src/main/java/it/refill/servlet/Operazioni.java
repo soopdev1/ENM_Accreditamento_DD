@@ -734,12 +734,7 @@ public class Operazioni extends HttpServlet {
         String protocollo = getRequestValue(request, "protocollo");
         String decreto = getRequestValue(request, "decreto");
         String datadecreto = getRequestValue(request, "datadecreto");
-//        printRequest(request);
-//        System.out.println(motivazione);
-//        if (true) {
-//            return;
-//        }
-//        
+
         if (setStatoDomandaAccRif(username, accRif, protocollo, motivazione, decreto, datadecreto)) {
 
             Db_Bando db = new Db_Bando();

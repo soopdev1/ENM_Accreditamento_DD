@@ -114,7 +114,7 @@ public class Pdf_new {
             createDir(pathtemp);
 
             File pdfOut = new File(pathtemp + username + dataconsegna.toString("ddMMyyyyHHmmSSS") + ".A.pdf");
-            try (InputStream is = new ByteArrayInputStream(decodeBase64(contentb64)); PdfReader reader = new PdfReader(is); PdfWriter writer = new PdfWriter(pdfOut); PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
+            try ( InputStream is = new ByteArrayInputStream(decodeBase64(contentb64));  PdfReader reader = new PdfReader(is);  PdfWriter writer = new PdfWriter(pdfOut);  PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
                 PdfAcroForm form = getAcroForm(pdfDoc, true);
                 form.setGenerateAppearance(true);
                 Map<String, PdfFormField> fields = form.getFormFields();
@@ -190,7 +190,7 @@ public class Pdf_new {
             createDir(pathtemp);
             File pdfOut = new File(pathtemp + username + dataconsegna.toString("ddMMyyyyHHmmSSS") + ".B.pdf");
 
-            try (InputStream is = new ByteArrayInputStream(decodeBase64(contentb64)); PdfReader reader = new PdfReader(is); PdfWriter writer = new PdfWriter(pdfOut); PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
+            try ( InputStream is = new ByteArrayInputStream(decodeBase64(contentb64));  PdfReader reader = new PdfReader(is);  PdfWriter writer = new PdfWriter(pdfOut);  PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
                 PdfAcroForm form = getAcroForm(pdfDoc, true);
                 form.setGenerateAppearance(true);
                 Map<String, PdfFormField> fields = form.getFormFields();
@@ -280,7 +280,7 @@ public class Pdf_new {
             dbb.closeDB();
             createDir(pathtemp);
             File pdfOut = new File(pathtemp + username + dataconsegna.toString("ddMMyyyyHHmmSSS") + ".B1.pdf");
-            try (InputStream is = new ByteArrayInputStream(decodeBase64(contentb64)); PdfReader reader = new PdfReader(is); PdfWriter writer = new PdfWriter(pdfOut); PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
+            try ( InputStream is = new ByteArrayInputStream(decodeBase64(contentb64));  PdfReader reader = new PdfReader(is);  PdfWriter writer = new PdfWriter(pdfOut);  PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
 
                 PdfAcroForm form = getAcroForm(pdfDoc, true);
                 form.setGenerateAppearance(true);
@@ -356,7 +356,7 @@ public class Pdf_new {
 
             createDir(pathtemp);
             File pdfOut = new File(pathtemp + username + dataconsegna.toString("ddMMyyyyHHmmSSS") + ".C.pdf");
-            try (InputStream is = new ByteArrayInputStream(decodeBase64(contentb64)); PdfReader reader = new PdfReader(is); PdfWriter writer = new PdfWriter(pdfOut); PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
+            try ( InputStream is = new ByteArrayInputStream(decodeBase64(contentb64));  PdfReader reader = new PdfReader(is);  PdfWriter writer = new PdfWriter(pdfOut);  PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
                 PdfAcroForm form = getAcroForm(pdfDoc, true);
                 form.setGenerateAppearance(true);
                 Map<String, PdfFormField> fields = form.getFormFields();
@@ -404,7 +404,7 @@ public class Pdf_new {
             dbb.closeDB();
             createDir(pathtemp);
             File pdfOut = new File(pathtemp + username + dataconsegna.toString("ddMMyyyyHHmmSSS") + ".A.pdf");
-            try (InputStream is = new ByteArrayInputStream(decodeBase64(contentb64)); PdfReader reader = new PdfReader(is); PdfWriter writer = new PdfWriter(pdfOut); PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
+            try ( InputStream is = new ByteArrayInputStream(decodeBase64(contentb64));  PdfReader reader = new PdfReader(is);  PdfWriter writer = new PdfWriter(pdfOut);  PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
                 BarcodeQRCode barcode = new BarcodeQRCode(username + " / ALLEGATO 1 DD/ " + dataconsegna.toString("ddMMyyyyHHmmSSS"));
                 printbarcode(barcode, pdfDoc);
             }
@@ -430,7 +430,7 @@ public class Pdf_new {
 
             createDir(pathtemp);
             File pdfOut = new File(pathtemp + username + dataconsegna.toString("ddMMyyyyHHmmSSS") + ".C2.pdf");
-            try (InputStream is = new ByteArrayInputStream(decodeBase64(contentb64)); PdfReader reader = new PdfReader(is); PdfWriter writer = new PdfWriter(pdfOut); PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
+            try ( InputStream is = new ByteArrayInputStream(decodeBase64(contentb64));  PdfReader reader = new PdfReader(is);  PdfWriter writer = new PdfWriter(pdfOut);  PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
                 PdfAcroForm form = getAcroForm(pdfDoc, true);
                 form.setGenerateAppearance(true);
                 Map<String, PdfFormField> fields = form.getFormFields();
@@ -536,9 +536,7 @@ public class Pdf_new {
             dbn.closeDB();
 
             File pdfOut = new File(pathtemp + username + dataconsegna.toString("ddMMyyyyHHmmSSS") + ".D.pdf");
-            try (InputStream is = new ByteArrayInputStream(decodeBase64(contentb64)); PdfReader reader = new PdfReader(is);
-                    PdfWriter writer = new PdfWriter(pdfOut);
-                    PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
+            try ( InputStream is = new ByteArrayInputStream(decodeBase64(contentb64));  PdfReader reader = new PdfReader(is);  PdfWriter writer = new PdfWriter(pdfOut);  PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
                 PdfAcroForm form = getAcroForm(pdfDoc, true);
                 form.setGenerateAppearance(true);
 
@@ -580,7 +578,7 @@ public class Pdf_new {
             dbb.closeDB();
             createDir(pathtemp);
             File pdfOut = new File(pathtemp + username + dataconsegna.toString("ddMMyyyyHHmmSSS") + ".NO.pdf");
-            try (InputStream is = new ByteArrayInputStream(decodeBase64(contentb64)); PdfReader reader = new PdfReader(is); PdfWriter writer = new PdfWriter(pdfOut); PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
+            try ( InputStream is = new ByteArrayInputStream(decodeBase64(contentb64));  PdfReader reader = new PdfReader(is);  PdfWriter writer = new PdfWriter(pdfOut);  PdfDocument pdfDoc = new PdfDocument(reader, writer)) {
                 PdfAcroForm form = getAcroForm(pdfDoc, true);
                 form.setGenerateAppearance(true);
                 Map<String, PdfFormField> fields = form.getFormFields();
@@ -674,71 +672,73 @@ public class Pdf_new {
         try {
             byte[] byteICC = decodeBase64(getPath("pdf.icc"));
             File pdfOutA = new File(replace(pdf_ing.getPath(), ".pdf", "_pdfA.pdf"));
-            FileInputStream in = new FileInputStream(pdf_ing);
-            setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
-            try (PDDocument doc = load(pdf_ing)) {
-                int numPageTOT = 0;
-                Iterator<PDPage> it1 = doc.getPages().iterator();
-                while (it1.hasNext()) {
-                    numPageTOT++;
-                    it1.next();
-                }
-                PDPage page = new PDPage();
-                doc.setVersion(1.7f);
-                try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
-                    PDDocument docSource = load(in);
-                    PDFRenderer pdfRenderer = new PDFRenderer(docSource);
-                    for (int i = 0; i < numPageTOT; i++) {
-                        BufferedImage imagePage = pdfRenderer.renderImageWithDPI(i, 200);
-                        PDImageXObject pdfXOImage = createFromImage(doc, imagePage);
-                        contents.drawImage(pdfXOImage, 0, 0, page.getMediaBox().getWidth(), page.getMediaBox().getHeight());
+            try ( FileInputStream in = new FileInputStream(pdf_ing)) {
+                setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
+                try ( PDDocument doc = load(pdf_ing)) {
+                    int numPageTOT = 0;
+                    Iterator<PDPage> it1 = doc.getPages().iterator();
+                    while (it1.hasNext()) {
+                        numPageTOT++;
+                        it1.next();
                     }
+                    PDPage page = new PDPage();
+                    doc.setVersion(1.7f);
+                    try ( PDPageContentStream contents = new PDPageContentStream(doc, page)) {
+                        PDDocument docSource = load(in);
+                        PDFRenderer pdfRenderer = new PDFRenderer(docSource);
+                        for (int i = 0; i < numPageTOT; i++) {
+                            BufferedImage imagePage = pdfRenderer.renderImageWithDPI(i, 200);
+                            PDImageXObject pdfXOImage = createFromImage(doc, imagePage);
+                            contents.drawImage(pdfXOImage, 0, 0, page.getMediaBox().getWidth(), page.getMediaBox().getHeight());
+                        }
+                    }
+                    XMPMetadata xmp = createXMPMetadata();
+                    PDDocumentCatalog catalogue = doc.getDocumentCatalog();
+                    Calendar cal = getInstance();
+                    try {
+                        DublinCoreSchema dc = xmp.createAndAddDublinCoreSchema();
+                        dc.addCreator("YISU");
+                        dc.addDate(cal);
+                        PDFAIdentificationSchema id = xmp.createAndAddPFAIdentificationSchema();
+                        id.setPart(3);  //value => 2|3
+                        id.setConformance("A"); // value => A|B|U
+                        XmpSerializer serializer = new XmpSerializer();
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        serializer.serialize(xmp, baos, true);
+                        PDMetadata metadata = new PDMetadata(doc);
+                        metadata.importXMPMetadata(baos.toByteArray());
+                        catalogue.setMetadata(metadata);
+                    } catch (BadFieldValueException e) {
+                        throw new IllegalArgumentException(e);
+                    }
+                    InputStream colorProfile = new ByteArrayInputStream(byteICC);
+                    PDOutputIntent intent = new PDOutputIntent(doc, colorProfile);
+                    intent.setInfo("sRGB IEC61966-2.1");
+                    intent.setOutputCondition("sRGB IEC61966-2.1");
+                    intent.setOutputConditionIdentifier("sRGB IEC61966-2.1");
+                    intent.setRegistryName("http://www.color.org");
+                    catalogue.addOutputIntent(intent);
+                    catalogue.setLanguage("it-IT");
+                    PDViewerPreferences pdViewer = new PDViewerPreferences(page.getCOSObject());
+                    pdViewer.setDisplayDocTitle(true);
+                    catalogue.setViewerPreferences(pdViewer);
+                    PDMarkInfo mark = new PDMarkInfo();
+                    PDStructureTreeRoot treeRoot = new PDStructureTreeRoot();
+                    catalogue.setMarkInfo(mark);
+                    catalogue.setStructureTreeRoot(treeRoot);
+                    catalogue.getMarkInfo().setMarked(true);
+                    PDDocumentInformation info = doc.getDocumentInformation();
+                    info.setCreationDate(cal);
+                    info.setModificationDate(cal);
+                    info.setAuthor("YISU");
+                    info.setProducer("YISU");
+                    info.setCreator("YISU");
+                    info.setTitle(nomepdf);
+                    info.setSubject("PDF/A");
+                    doc.save(pdfOutA);
                 }
-                XMPMetadata xmp = createXMPMetadata();
-                PDDocumentCatalog catalogue = doc.getDocumentCatalog();
-                Calendar cal = getInstance();
-                try {
-                    DublinCoreSchema dc = xmp.createAndAddDublinCoreSchema();
-                    dc.addCreator("YISU");
-                    dc.addDate(cal);
-                    PDFAIdentificationSchema id = xmp.createAndAddPFAIdentificationSchema();
-                    id.setPart(3);  //value => 2|3
-                    id.setConformance("A"); // value => A|B|U
-                    XmpSerializer serializer = new XmpSerializer();
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    serializer.serialize(xmp, baos, true);
-                    PDMetadata metadata = new PDMetadata(doc);
-                    metadata.importXMPMetadata(baos.toByteArray());
-                    catalogue.setMetadata(metadata);
-                } catch (BadFieldValueException e) {
-                    throw new IllegalArgumentException(e);
-                }
-                InputStream colorProfile = new ByteArrayInputStream(byteICC);
-                PDOutputIntent intent = new PDOutputIntent(doc, colorProfile);
-                intent.setInfo("sRGB IEC61966-2.1");
-                intent.setOutputCondition("sRGB IEC61966-2.1");
-                intent.setOutputConditionIdentifier("sRGB IEC61966-2.1");
-                intent.setRegistryName("http://www.color.org");
-                catalogue.addOutputIntent(intent);
-                catalogue.setLanguage("it-IT");
-                PDViewerPreferences pdViewer = new PDViewerPreferences(page.getCOSObject());
-                pdViewer.setDisplayDocTitle(true);
-                catalogue.setViewerPreferences(pdViewer);
-                PDMarkInfo mark = new PDMarkInfo(); // new PDMarkInfo(page.getCOSObject());
-                PDStructureTreeRoot treeRoot = new PDStructureTreeRoot();
-                catalogue.setMarkInfo(mark);
-                catalogue.setStructureTreeRoot(treeRoot);
-                catalogue.getMarkInfo().setMarked(true);
-                PDDocumentInformation info = doc.getDocumentInformation();
-                info.setCreationDate(cal);
-                info.setModificationDate(cal);
-                info.setAuthor("YISU");
-                info.setProducer("YISU");
-                info.setCreator("YISU");
-                info.setTitle(nomepdf);
-                info.setSubject("PDF/A");
-                doc.save(pdfOutA);
             }
+
             return pdfOutA;
         } catch (Exception e) {
             trackingAction("ERROR SYSTEM", estraiEccezione(e));
@@ -837,7 +837,7 @@ public class Pdf_new {
             if (!allCerts.isEmpty()) {
                 X509CertificateHolder x509h = allCerts.iterator().next();
                 CertificateFactory certFactory = getInstance("X.509");
-                try (InputStream in = new ByteArrayInputStream(x509h.getEncoded())) {
+                try ( InputStream in = new ByteArrayInputStream(x509h.getEncoded())) {
                     X509Certificate cert = (X509Certificate) certFactory.generateCertificate(in);
                     Principal principal = cert.getSubjectDN();
                     try {
@@ -848,9 +848,6 @@ public class Pdf_new {
                         doc.setErrore(e.getMessage());
                     }
                     if (doc.isValido()) {
-//                        System.out.println("it.refill.action.Pdf_new.extractSignatureInformation_P7M() "+ cert.getIssuerDN().getName());
-                        System.out.println("it.refill.action.Pdf_new.extractSignatureInformation_P7M() "+ cert.getIssuerX500Principal().getName());
-                           
 //                        String cf = substringBefore(substringAfter(principal.getName(), "SERIALNUMBER="), ", GIVENNAME");
                         doc.setCodicefiscale(principal.getName().toUpperCase());
                         doc.setContenuto((byte[]) cms.getSignedContent().getContent());
@@ -881,7 +878,7 @@ public class Pdf_new {
             try {
                 setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
                 if (content != null) {
-                    try (InputStream is1 = new ByteArrayInputStream(content); PDDocument doc = load(is1)) {
+                    try ( InputStream is1 = new ByteArrayInputStream(content);  PDDocument doc = load(is1)) {
                         PDPage page = doc.getPage(0);
                         page.setCropBox(new PDRectangle(20, 0, 50, 50));
                         PDFRenderer pr = new PDFRenderer(doc);
@@ -963,9 +960,7 @@ public class Pdf_new {
         try {
             BouncyCastleProvider provider = new BouncyCastleProvider();
             addProvider(provider);
-            try (InputStream is = new ByteArrayInputStream(pdf_bytes);
-                    PdfReader read = new PdfReader(is);
-                    PdfDocument pdfDoc = new PdfDocument(read, new PdfWriter(out))) {
+            try ( InputStream is = new ByteArrayInputStream(pdf_bytes);  PdfReader read = new PdfReader(is);  PdfDocument pdfDoc = new PdfDocument(read, new PdfWriter(out))) {
                 AtomicInteger error = new AtomicInteger(0);
                 SignatureUtil signatureUtil = new SignatureUtil(pdfDoc);
                 List<String> li = signatureUtil.getSignatureNames();
@@ -1067,7 +1062,7 @@ public class Pdf_new {
                 try {
                     setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
                     if (content != null) {
-                        try (InputStream is1 = new ByteArrayInputStream(content); PDDocument doc = load(is1)) {
+                        try ( InputStream is1 = new ByteArrayInputStream(content);  PDDocument doc = load(is1)) {
                             PDPage page = doc.getPage(0);
                             page.setCropBox(new PDRectangle(20, 0, 50, 50));
                             PDFRenderer pr = new PDFRenderer(doc);
@@ -1155,7 +1150,7 @@ public class Pdf_new {
         if (pdffile.exists()) {
             try {
                 int pag;
-                try (InputStream is = new FileInputStream(pdffile); PdfReader pdfReader = new PdfReader(is); PdfDocument pd = new PdfDocument(pdfReader)) {
+                try ( InputStream is = new FileInputStream(pdffile);  PdfReader pdfReader = new PdfReader(is);  PdfDocument pd = new PdfDocument(pdfReader)) {
                     pag = pd.getNumberOfPages();
                 }
                 return pag > 0;

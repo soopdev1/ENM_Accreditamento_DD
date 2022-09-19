@@ -59,7 +59,7 @@ public class GoogleRecaptcha {
 //            JSONObject json = (JSONObject) parser.parse(response.toString());
             JSONObject json = new JSONObject(response.toString());
             
-            System.out.println("it.refill.util.GoogleRecaptcha.isValid() "+json.toString());
+//            System.out.println("it.refill.util.GoogleRecaptcha.isValid() "+json.toString());
             
             Boolean success = (Boolean) json.get("success");
             Double score = (Double) json.get("score");
