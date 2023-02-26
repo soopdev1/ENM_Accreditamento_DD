@@ -7,8 +7,6 @@ package it.refill.servlet;
 
 import static it.refill.action.ActionB.domandaAnnullata;
 import static it.refill.action.ActionB.getConvenzioneROMA;
-import static it.refill.action.ActionB.getPath;
-import static it.refill.action.ActionB.getValoriPerEmail;
 import static it.refill.action.ActionB.insertConvenzioneROMA;
 import static it.refill.action.ActionB.insertDocumentUserConvenzioni;
 import static it.refill.action.ActionB.isPresenzaDocumento;
@@ -28,19 +26,16 @@ import it.refill.entity.Docuserbandi;
 import it.refill.entity.Docuserconvenzioni;
 import it.refill.entity.SignedDoc;
 import it.refill.otp.Db_OTP;
-import static it.refill.otp.Sms.sendSMS2021;
+import static it.refill.otp.Sms.sendSMS2022;
 import static it.refill.util.SendMailJet.sendMail;
-import it.refill.util.Utility;
 import static it.refill.util.Utility.checkExtension;
 import static it.refill.util.Utility.checkFile;
 import static it.refill.util.Utility.createDir;
 import static it.refill.util.Utility.estraiEccezione;
-import static it.refill.util.Utility.parseIntR;
 import static it.refill.util.Utility.redirect;
 import java.io.File;
 import static java.io.File.separator;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -495,7 +490,7 @@ public class Upload extends HttpServlet {
                             Db_OTP dbo = new Db_OTP();
                             String sms = dbo.getSMS(bando, 5);
                             dbo.closeDB();
-                            sendSMS2021(numuser, sms);
+                            sendSMS2022(numuser, sms);
 
                         } catch (Exception e) {
                             trackingAction(username, estraiEccezione(e));

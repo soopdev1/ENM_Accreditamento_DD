@@ -55,8 +55,6 @@ public class GoogleRecaptcha {
                     response.append(inputLine);
                 }
             }
-//            JSONParser parser = new JSONParser();
-//            JSONObject json = (JSONObject) parser.parse(response.toString());
             JSONObject json = new JSONObject(response.toString());
             
 //            System.out.println("it.refill.util.GoogleRecaptcha.isValid() "+json.toString());

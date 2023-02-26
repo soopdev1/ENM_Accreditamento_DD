@@ -5,7 +5,7 @@
  */
 package it.refill.otp;
 
-import static it.refill.otp.Sms.sendSMS2021;
+import static it.refill.otp.Sms.sendSMS2022;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
 /**
@@ -27,7 +27,7 @@ public class OTP {
 
         String out;
         if (es1) {
-            if (sendSMS2021(numero, msg + " " + otp)) {
+            if (sendSMS2022(numero, msg + " " + otp)) {
 //            if (Sms.sendSMS(numero, msg + " " + otp, sktype, skebbyuser, skebbyPwd).contains("success")) {
                 out = "SUCCESS";
             } else {
@@ -51,7 +51,7 @@ public class OTP {
 
         String out;
         if (es1) {
-            if (sendSMS2021(numero, msg + " " + otp)) {
+            if (sendSMS2022(numero, msg + " " + otp)) {
 //            if (Sms.sendSMS(numero, msg + " " + otp, sktype, skebbyuser, skebbyPwd).contains("success")) {
                 out = "SUCCESS";
             } else {

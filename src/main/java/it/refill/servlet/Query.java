@@ -26,6 +26,7 @@ import static it.refill.util.GoogleRecaptcha.isValid;
 import static it.refill.util.SendMailJet.sendMail;
 import it.refill.util.Utility;
 import static it.refill.util.Utility.convMd5;
+import static it.refill.util.Utility.estraiEccezione;
 import static it.refill.util.Utility.formatStringtoStringDate;
 import static it.refill.util.Utility.formatUTFtoLatin;
 import static it.refill.util.Utility.getRequestValue;
@@ -165,8 +166,8 @@ public class Query extends HttpServlet {
                     out.print(inizio + fine);
                 }
             }
-        } catch (ParseException ex) {
-            ex.printStackTrace();
+        } catch (Exception ex) {
+            trackingAction("ERROR SYSTEM", estraiEccezione(ex));
         }
     }
 
@@ -403,8 +404,7 @@ public class Query extends HttpServlet {
                     resp.addProperty("message", "Errore: I dati inseriti non corrispondono a quelli di un soggetto attuatore accreditato. Controllare i dati.");
                 }
             } catch (Exception e) {
-                trackingAction("service", "registraUtente - Error: BANDO ERROR " + Utility.estraiEccezione(e));
-                e.printStackTrace();
+                trackingAction("ERROR SYSTEM", estraiEccezione(e));
                 resp = new JsonObject();
                 resp.addProperty("result", false);
                 resp.addProperty("message", "Errore: I dati inseriti non corrispondono a quelli di un soggetto attuatore accreditato. Controllare i dati.");

@@ -10,6 +10,7 @@ import static it.refill.action.Pdf_new.extractSignatureInformation_P7M;
 import static it.refill.action.Pdf_new.verificaQR;
 import it.refill.db.Db_Bando;
 import it.refill.entity.SignedDoc;
+import static it.refill.util.Utility.estraiEccezione;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -23,14 +24,7 @@ import static org.apache.commons.io.FileUtils.readFileToByteArray;
 public class checkfile {
 
     public static void main(String[] args) {
-//        
-//        System.out.println("test.checkfile.main() "+Pdf_new.allegatoA_fase1("PMERIN6427").getPath());
-//        System.out.println("test.checkfile.main() "+Pdf_new.allegatoB_fase1("PMERIN6427").getPath());
-
         try {
-//            String esitoqr = verificaQR("DONLA", "PMERIN6427", 
-//                    readFileToByteArray(new File("C:\\mnt\\mcn\\test\\temp\\PMERIN6427211220211419271.A_pdfA.pdf")));
-//            System.out.println(esitoqr);
 
             String username = "SFATTO4303";
             String tipodoc = "DONLD";
@@ -56,11 +50,11 @@ public class checkfile {
                     }
                 }
             } else {
-                System.out.println("test.checkfile.main() " + dc.getErrore());
+                trackingAction("ERROR SYSTEM", "test.checkfile.main() " + dc.getErrore());
             }
             dbb.closeDB();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            trackingAction("ERROR SYSTEM", estraiEccezione(ex));
         }
     }
 }

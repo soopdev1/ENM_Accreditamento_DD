@@ -111,14 +111,15 @@ public class Db_Bando {
 
     public Db_Bando() {
 
+        
         String driver = "com.mysql.cj.jdbc.Driver";
-        String user = "bando";
-        String password = "bando";
-        String host = "clustermicrocredito.cluster-c6m6yfqeypv3.eu-south-1.rds.amazonaws.com:3306/enm_dd_prod";
-
-        if (test) {
-            host = "clustermicrocredito.cluster-c6m6yfqeypv3.eu-south-1.rds.amazonaws.com:3306/enm_dd";
-        }
+        String user = conf.getString("db.user");
+        String password = conf.getString("db.pass");
+        String host = conf.getString("db.host") + ":3306/enm_dd_prod";
+      
+//        if (test) {
+//            host = "clustermicrocredito.cluster-c6m6yfqeypv3.eu-south-1.rds.amazonaws.com:3306/enm_dd";
+//        }
 
         try {
             forName(driver).newInstance();
@@ -1757,7 +1758,7 @@ public class Db_Bando {
         }
         return val;
     }
-
+    
     public ArrayList<Domandecomplete> listaconsegnatestato(String data_da, String data_a, String stato) {
         ArrayList<Domandecomplete> li = new ArrayList<>();
         try {
@@ -1778,7 +1779,6 @@ public class Db_Bando {
                 }
 
             }
-
             try ( PreparedStatement ps = this.c.prepareStatement(sql);  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     String decre = "";
@@ -1789,7 +1789,8 @@ public class Db_Bando {
                     }
                     boolean convenzionedainviare = countDocumentConvenzioni(rs.getString("username")) == 3;
                     boolean convenzioneinviataROMA = getInvioEmailROMA(rs.getString("username")).equals("1");
-                    boolean convenzionecaricatacontrofirmata = !getConvenzioneROMA(rs.getString("username")).trim().equals("");
+                    boolean convenzionecaricatacontrofirmata = isConvenzioneROMA(rs.getString("username"));
+//                    boolean convenzionecaricatacontrofirmata = !getConvenzioneROMA(rs.getString("username")).trim().equals("");
                     Domandecomplete dc1 = new Domandecomplete(rs.getString("coddomanda"), rs.getString("username"), rs.getString("nome"),
                             rs.getString("cognome"), rs.getString("cf"), rs.getString("dataconsegna"),
                             rs.getString("societa"), rs.getString("pivacf"), rs.getString("pec"),
@@ -1848,6 +1849,97 @@ public class Db_Bando {
         }
         return li;
     }
+
+//    public ArrayList<Domandecomplete> listaconsegnatestato(String data_da, String data_a, String stato) {
+//        ArrayList<Domandecomplete> li = new ArrayList<>();
+//        try {
+//            String sql = "SELECT * FROM bando_dd_mcn where coddomanda <> '-'";
+//            if (!data_da.trim().equals("") && data_a.equals("")) {
+//                sql = sql + " and dataconsegna like '" + data_da + "%'";
+//            } else if (data_da.trim().equals("") && !data_a.equals("")) {
+//                sql = sql + " and dataconsegna like '" + data_a + "%'";
+//            } else if (!data_da.trim().equals("") && !data_a.equals("")) {
+//                sql = sql + " and dataconsegna > '" + data_da + " 00:00:00' and dataconsegna <'" + data_a + " 23:59:59'";
+//            }
+//            if (!stato.equals("")) {
+//
+//                if (stato.equals("S") || stato.equals("A") || stato.equals("R")) {
+//                    sql = sql + " and stato_domanda = '" + stato + "'";
+//                } else {
+//                    sql = sql + " and stato_domanda = 'A'";
+//                }
+//
+//            }
+//
+//            try ( PreparedStatement ps = this.c.prepareStatement(sql);  ResultSet rs = ps.executeQuery()) {
+//                while (rs.next()) {
+//                    String decre = "";
+//                    if (rs.getString("decreto").equals("-") || rs.getString("datadecreto").equals("-")) {
+//
+//                    } else {
+//                        decre = rs.getString("decreto") + " DEL " + rs.getString("datadecreto");
+//                    }
+//                    boolean convenzionedainviare = countDocumentConvenzioni(rs.getString("username")) == 3;
+//                    boolean convenzioneinviataROMA = getInvioEmailROMA(rs.getString("username")).equals("1");
+//                    boolean convenzionecaricatacontrofirmata = isConvenzioneROMA(rs.getString("username"));
+//                    Domandecomplete dc1 = new Domandecomplete(rs.getString("coddomanda"), rs.getString("username"), rs.getString("nome"),
+//                            rs.getString("cognome"), rs.getString("cf"), rs.getString("dataconsegna"),
+//                            rs.getString("societa"), rs.getString("pivacf"), rs.getString("pec"),
+//                            rs.getString("stato_domanda"), rs.getString("protocollo"), decre);
+//
+//                    if (convenzionedainviare) {
+//                        if (convenzioneinviataROMA) {
+//                            if (convenzionecaricatacontrofirmata) {
+//                                dc1.setStatoDomanda("A2");
+//                            } else {
+//                                dc1.setStatoDomanda("A3");
+//                            }
+//                        } else {
+//                            dc1.setStatoDomanda("A1");
+//                        }
+//                    }
+//
+//                    dc1.setConvenzionedainviare(convenzionedainviare);
+//                    dc1.setConvenzioneinviataROMA(convenzioneinviataROMA);
+//                    dc1.setConvenzionecaricatacontrofirmata(convenzionecaricatacontrofirmata);
+//
+//                    if (stato.equals("") || stato.equals(dc1.getStatoDomanda())) {
+//                        li.add(dc1);
+//                    }
+//
+////                    if (stato.equals("") || stato.equals("S") || stato.equals("A") || stato.equals("R")) {
+////                        li.add(dc1);
+////                    } else {
+////                        if (stato.equals("A1")) {
+////                            if (convenzionedainviare) {
+////                                if (convenzioneinviataROMA) {
+////                                    if (!convenzionecaricatacontrofirmata) {
+////                                        dc1.setStatoDomanda("A1");
+////                                        li.add(dc1);
+////                                    }
+////                                } else {
+////                                    dc1.setStatoDomanda("A1");
+////                                    li.add(dc1);
+////                                }
+////                            }
+////                        } else if (stato.equals("A2")) {
+////                            if (convenzionedainviare) {
+////                                if (convenzioneinviataROMA) {
+////                                    if (convenzionecaricatacontrofirmata) {
+////                                        dc1.setStatoDomanda("A2");
+////                                        li.add(dc1);
+////                                    }
+////                                }
+////                            }
+////                        }
+////                    }
+//                }
+//            }
+//        } catch (SQLException ex) {
+//            insertTracking("ERROR SYSTEM", estraiEccezione(ex));
+//        }
+//        return li;
+//    }
 
     public boolean insAllegatoA(
             //PUNTO 1
@@ -3351,7 +3443,7 @@ public class Db_Bando {
     public int countDocumentConvenzioni(String username) {
         int var = 0;
         try {
-            String query = "select count(*) from docuserconvenzioni where username='" + username + "'";
+            String query = "select count(username) from docuserconvenzioni where username='" + username + "'";
             try ( PreparedStatement ps = this.c.prepareStatement(query);  ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     var = rs.getInt(1);
@@ -3441,7 +3533,7 @@ public class Db_Bando {
     public String getInvioEmailROMA(String username) {
         String out = "0";
         try {
-            String query = "select username,sendmail from docuserconvenzioni where username='" + username + "' and codicedoc='CONV'";
+            String query = "select sendmail from docuserconvenzioni where username='" + username + "' and codicedoc='CONV'";
             try ( PreparedStatement ps = this.c.prepareStatement(query);  ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     out = rs.getString("sendmail");
@@ -3470,7 +3562,6 @@ public class Db_Bando {
         }
         return false;
     }
-
     public String getConvenzioneROMA(String username) {
         String pathRoma = "";
         try {
@@ -3479,6 +3570,18 @@ public class Db_Bando {
                 if (rs.next()) {
                     pathRoma = rs.getString("path");
                 }
+            }
+        } catch (Exception e) {
+            insertTracking("ERROR SYSTEM", estraiEccezione(e));
+        }
+        return pathRoma;
+    }
+    public boolean isConvenzioneROMA(String username) {
+        boolean pathRoma = false;
+        try {
+            String query = "select username from convenzioniroma where username = '" + username + "' limit 1";
+            try ( PreparedStatement ps = this.c.prepareStatement(query);  ResultSet rs = ps.executeQuery()) {
+                pathRoma = rs.next();
             }
         } catch (Exception e) {
             insertTracking("ERROR SYSTEM", estraiEccezione(e));

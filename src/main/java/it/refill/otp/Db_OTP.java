@@ -59,7 +59,6 @@ public class Db_OTP {
         try {
             this.conn = conn;
         } catch (Exception ex) {
-            ex.printStackTrace();
         }
     }
 

@@ -31,7 +31,6 @@ import it.refill.entity.FileDownload;
 import static it.refill.util.Utility.estraiEccezione;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import static java.nio.file.Files.probeContentType;
 import java.util.List;

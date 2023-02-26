@@ -188,13 +188,13 @@ public class ActionB {
         dbb.closeDB();
         return liout;
     }
-    
+
     public static ArrayList<String[]> listacodDocRichiesti(Db_Bando db, String bandorif, String username) {
         ArrayList<String[]> liout = new ArrayList<>();
         ArrayList<String[]> listart = db.listaCodDocRichiestiBando(bandorif);
         for (int i = 0; i < listart.size(); i++) {
             if (getSino(username).equals("SI")) {
-                if (listart.get(i)[0].equals("DONLD") ) {
+                if (listart.get(i)[0].equals("DONLD")) {
                     liout.add(listart.get(i));
                 }
             } else {
@@ -206,9 +206,7 @@ public class ActionB {
         }
         return liout;
     }
-    
-    
-    
+
     public static ArrayList<Docbandi> listaDocRichiesti(Db_Bando db, String bandorif, String username) {
         ArrayList<Docbandi> liout = new ArrayList<>();
         ArrayList<Docbandi> listart = db.listaDocRichiestiBando(bandorif);
@@ -443,6 +441,13 @@ public class ActionB {
         ArrayList<Domandecomplete> desc = db.listaconsegnatestato(a, b, stato);
         db.closeDB();
         return desc;
+    }
+
+    public static String getConvenzioneROMA(String username) {
+        Db_Bando db = new Db_Bando();
+        String path = db.getConvenzioneROMA(username);
+        db.closeDB();
+        return path;
     }
 
     public static String[] excelreport() {
@@ -992,13 +997,12 @@ public class ActionB {
         return ctrl;
     }
 
-    public static String getConvenzioneROMA(String username) {
-        Db_Bando db = new Db_Bando();
-        String path = db.getConvenzioneROMA(username);
-        db.closeDB();
-        return path;
-    }
-
+//    public static String getConvenzioneROMA(String username) {
+//        Db_Bando db = new Db_Bando();
+//        String path = db.getConvenzioneROMA(username);
+//        db.closeDB();
+//        return path;
+//    }
     public static String getDatafirmaConvenzioneROMA(String username) {
         Db_Bando db = new Db_Bando();
         String path = db.getDatafirmaConvenzioneROMA(username);
@@ -1038,7 +1042,6 @@ public class ActionB {
             String content = encodeBase64String(readFileToByteArray(file));
             return file.getName() + "###" + mimeType + "###" + content;
         } catch (Exception ex) {
-            ex.printStackTrace();
             trackingAction("SYSTEM", estraiEccezione(ex));
             return "FILE ERROR";
         }
@@ -1123,7 +1126,7 @@ public class ActionB {
         return list1;
 
     }
-    
+
     public static List<FileDownload> lista_file_Convenzione(String username, String protocollo, String ragsoc) {
         List<FileDownload> out = new ArrayList<>();
         try {
